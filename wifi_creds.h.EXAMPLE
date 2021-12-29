@@ -1,0 +1,9 @@
+//This file contains the username and password for your wifi network
+//Note these are also use to host a wifi network
+//Don't commit this to the git repository once updated with your private details
+
+#ifndef WIFI_CREDENTIALS_LOADED
+#define WIFI_CREDENTIALS_LOADED
+#define WIFI_SSID "pageturner"
+#define WIFI_PASSWORD "turninator"
+#endif

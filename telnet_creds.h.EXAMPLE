@@ -1,0 +1,9 @@
+//This file contains the username and password for the kobo telnet interface.
+//Defaults are presented here
+//Don't commit this to the git repository once updated with your private details
+
+#ifndef TELNET_CREDENTIALS_LOADED
+#define TELNET_CREDENTIALS_LOADED
+#define TELNET_USER "root"
+#define TELNET_PASSWORD ""
+#endif
