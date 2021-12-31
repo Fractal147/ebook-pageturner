@@ -3,7 +3,11 @@ Code for a simple page turner device for my kobo libra h2o
 
 ## Hardware
 The sketch expects something like an esp8266 or esp32.
-The switches are expected to be connected with a pulldown resistor to gnd or another pin.
+By default it will use the internal pullups on the esp8266 for the switches.
+Then the common pin of the switches can be connected to gnd or another pin (driven low).
+
+This makes the switch pins low when pressed. All parts of the above are configurable.
+
 
 ### Requirements:
 - Some kind of ESP8266/ESP32 board installed in the Arduino IDE
@@ -17,33 +21,46 @@ The switches are expected to be connected with a pulldown resistor to gnd or ano
 The kobo libra at least (and likely others) have a developer mode.
 This mode opens a telnet server on the kobo.
 From that telnet prompt, one can record the touchscreen event (like a tap or a swipe) corresponding to page turns.
-Then one can play them back on demand.
+Then one can play them back to the kobo input on demand.
 
-The wireless module logs in via telent and plays back the touchscreen event to the kobo input, which makes a pageturn happen.
+The wireless module logs in via telent and runs a shell script which makes a pageturn happen.
 
+
+## ebook-pageturner configuration
+- Take the *_creds.h.EXAMPLE files, update, and rename to .h files
+- Install or copy the telnet library
+- Open the .ino file in Arduino IDE
+- Edit the configuration defines and variables to suit
+- Build!
+- Can use arduinoOTA to upload without serial cable.
 
 
 ## Kobo configuration
-- Developer mode should be enabled.
-- Keep wifi on should be enabled.
-- (recommended to change the telnet password too!)
+- Developer mode should be enabled.(devmodeon in search bar)
+- Keep wifi on should be enabled. (in dev options)
+- (recommended to change the telnet password too!) (via telnet on a computer)
+- Set up the script files (via telnet on a computer)
 
 Log in via telnet, and record a page turn forwards and back in files `/mnt/onboard/fw1.input' and '/mnt/onboard/bw1.input`
+Create or copy the turnfw.sh and turnbw.sh scripts on the /mnt/onboard directory (i.e. where the books are)
+Check execution via telnet on computer.
+
+
 
 ### Recording pageturns:
 (Note the input event number may be different - this is for a libra h2o)
 
 ```
 At the Kobo telent root interface:
-# cat /dev/input/event1 > /tmp/record.input
+# cat /dev/input/event1 > /mnt/onboard/fw1.input
 touch the screen to record the event then
 kill the cat (ctrl-c)
 
 check the result, should be a few hundred bytes..
-# ls -l /tmp/record.input
+# ls -l /mnt/onboard/fw1.input
 
 To replay the recorded event:
-# cat /tmp/record.input > /dev/input/event1
+# cat /mnt/onboard/fw1.input > /dev/input/event1
 ```
 
 
