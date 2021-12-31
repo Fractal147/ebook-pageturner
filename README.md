@@ -28,13 +28,13 @@ From that telnet prompt it is possible to:
 Then one can play them back to the kobo /dev/input/eventX on demand.
 
 The wireless module logs in via telent and runs a shell script which makes a pageturn happen.
-- (fw.sh and bw.sh, which rely on an .input file)
+- (`fw.sh` and `bw.sh`, which rely on `.input` files recorded from the device)
 
 
 ## ebook-pageturner configuration
-- Take the *_creds.h.EXAMPLE files, update, and rename to .h files
+- Take the `*_creds.h.EXAMPLE` files, update, and rename to `.h` files
 - Install or copy the telnet library
-- Open the .ino file in Arduino IDE
+- Open the `.ino` file in Arduino IDE
 - Edit the configuration defines and variables to suit
 - Build!
 - Can use arduinoOTA to upload without serial cable.
@@ -47,8 +47,8 @@ The wireless module logs in via telent and runs a shell script which makes a pag
 - Either copy the example files in this repository to the usb device root...
 - Or use telnet and make own scripts
 
-Log in via telnet, and record a page turn forwards and back in files `/mnt/onboard/fw1_ev0.input' and '/mnt/onboard/bw1_ev0.input`
-Create or copy the turnfw.sh and turnbw.sh scripts on the /mnt/onboard directory (i.e. where the books are)
+Log in via telnet, and record a page turn forwards and back in files `/mnt/onboard/fw1_ev0.input'` and `'/mnt/onboard/bw1_ev0.input`
+Create or copy the `fw.sh` and `bw.sh` scripts on the `/mnt/onboard` directory (i.e. where the books are)
 Check execution via telnet on computer.
 
 
