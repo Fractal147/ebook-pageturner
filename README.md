@@ -47,7 +47,7 @@ The wireless module logs in via telent and runs a shell script which makes a pag
 - Either copy the example files in this repository to the usb device root...
 - Or use telnet and make own scripts
 
-Log in via telnet, and record a page turn forwards and back in files `/mnt/onboard/fw1_ev1.input' and '/mnt/onboard/bw1_ev1.input`
+Log in via telnet, and record a page turn forwards and back in files `/mnt/onboard/fw1_ev0.input' and '/mnt/onboard/bw1_ev0.input`
 Create or copy the turnfw.sh and turnbw.sh scripts on the /mnt/onboard directory (i.e. where the books are)
 Check execution via telnet on computer.
 
@@ -58,15 +58,16 @@ Check execution via telnet on computer.
 
 ```
 At the Kobo telnet root interface:
-# cat /dev/input/event1 > /mnt/onboard/fw1.input
+To record from touchscreen (/dev/input/event1)
+# cat /dev/input/event1 > /mnt/onboard/fw1_ev1.input
 touch the screen to record the event then
 kill the cat (ctrl-c)
 
 check the result, should be a few hundred bytes..
-# ls -l /mnt/onboard/fw1.input
+# ls -l /mnt/onboard/fw1_ev1.input
 
 To replay the recorded event:
-# cat /mnt/onboard/fw1.input > /dev/input/event1
+# cat /mnt/onboard/fw1_ev1.input > /dev/input/event1
 
 Alternate for /dev/input/event0 - physical keys.
 Note this kills nickel, so reboot is needed afterwards
@@ -86,14 +87,15 @@ Note this kills nickel, so reboot is needed afterwards
 - e.g. On while sending pageturn.
 
 
-### Future bits
-It would be nicer to simulate button presses, given the kobo has hardware pageturn buttons.
-	But I'm not sure how!
+### Future Plans
+- Find kobo IP by mac address
+- Support hosting a wifi network on the esp8266 - inc. dhcp.
+- Sleep the espdevice between presses
+
+
+
 
 ### Versions used to compile:
 - Arduino 1.8.13 on mac os x 10.13.6
 - esp8266 boards module 3.0.2
-
-
-
 
