@@ -91,6 +91,7 @@ Note this kills nickel, so reboot is needed afterwards
 - Find kobo IP by mac address
 - Support hosting a wifi network on the esp8266 - inc. dhcp.
 - Sleep the espdevice between presses
+- Extend telnet library to support ack/nack
 
 
 
