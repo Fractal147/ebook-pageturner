@@ -20,10 +20,15 @@ This makes the switch pins low when pressed. All parts of the above are configur
 ## General operation
 The kobo libra at least (and likely others) have a developer mode.
 This mode opens a telnet server on the kobo.
-From that telnet prompt, one can record the touchscreen event (like a tap or a swipe) corresponding to page turns.
-Then one can play them back to the kobo input on demand.
+
+From that telnet prompt it is possible to:
+- Record the touchscreen event (like a tap or a swipe) corresponding to page turns.
+- Record to keypress event (like physical pageturn buttons) corresponding to page turns.
+
+Then one can play them back to the kobo /dev/input/eventX on demand.
 
 The wireless module logs in via telent and runs a shell script which makes a pageturn happen.
+- (fw.sh and bw.sh, which rely on an .input file)
 
 
 ## ebook-pageturner configuration
@@ -39,9 +44,10 @@ The wireless module logs in via telent and runs a shell script which makes a pag
 - Developer mode should be enabled.(devmodeon in search bar)
 - Keep wifi on should be enabled. (in dev options)
 - (recommended to change the telnet password too!) (via telnet on a computer)
-- Set up the script files (via telnet on a computer)
+- Either copy the example files in this repository to the usb device root...
+- Or use telnet and make own scripts
 
-Log in via telnet, and record a page turn forwards and back in files `/mnt/onboard/fw1.input' and '/mnt/onboard/bw1.input`
+Log in via telnet, and record a page turn forwards and back in files `/mnt/onboard/fw1_ev1.input' and '/mnt/onboard/bw1_ev1.input`
 Create or copy the turnfw.sh and turnbw.sh scripts on the /mnt/onboard directory (i.e. where the books are)
 Check execution via telnet on computer.
 
@@ -51,7 +57,7 @@ Check execution via telnet on computer.
 (Note the input event number may be different - this is for a libra h2o)
 
 ```
-At the Kobo telent root interface:
+At the Kobo telnet root interface:
 # cat /dev/input/event1 > /mnt/onboard/fw1.input
 touch the screen to record the event then
 kill the cat (ctrl-c)
@@ -61,6 +67,15 @@ check the result, should be a few hundred bytes..
 
 To replay the recorded event:
 # cat /mnt/onboard/fw1.input > /dev/input/event1
+
+Alternate for /dev/input/event0 - physical keys.
+Note this kills nickel, so reboot is needed afterwards
+# fuser -k /dev/input/event0 && cat /dev/input/event0 >> /mnt/onboard/fw1_ev0.input
+(press and release the page turn button)
+(kill the cat (ctrl-c))
+(record the other direction)
+# reboot
+
 ```
 
 
