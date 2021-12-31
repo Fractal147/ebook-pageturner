@@ -76,8 +76,8 @@ const uint16_t telnet_port = 23;
 //Note can easily replace with .sh files to run with less text transferred-->faster
 //const char pagefw_cmd[] = "cat /mnt/onboard/fw1.input > /dev/input/event1 && echo ok";
 //const char pagebw_cmd[] = "cat /mnt/onboard/bw1.input > /dev/input/event1 && echo ok";
-const char pagefw_cmd[] = "./turnfw.sh";
-const char pagebw_cmd[] = "./turnbw.sh";
+const char pagefw_cmd[] = "./fw.sh";
+const char pagebw_cmd[] = "./bw.sh";
 const char success_string[] = "ok"; //What it looks for to know it has succeeded. //not currently implemented.
 //const char extra_cmd[]=  "&& echo ok"
 
